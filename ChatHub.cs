@@ -18,12 +18,17 @@ public class ChatHub : Hub
 
     }
 
-    public async Task ReceiveAll()
+    public async Task<List<Publication>> ReceiveAll()
     {
-        foreach(var item in db.GetAllPublications())
-        {
-            await this.Clients.Caller.SendAsync("Receive", db.GetUserById(item.UserId).Username, item.Message, item.Date);
-        }
+        //foreach(var item in db.GetAllPublications())
+        //{
+        //    await this.Clients.Caller.SendAsync("Receive", db.GetUserById(item.UserId).Username, item.Message, item.Date);
+        //}
+        return db.GetAllPublications().ToList();
+    }
+    public async Task<string> ReceiveUsernameById(Guid id)
+    {
+        return db.GetUserById(id).Username;
     }
     public async Task<bool> CheckIsUsernameAvailable(string username) => db.GetAllUsers().Any(u => u.Username == username);
 
@@ -34,6 +39,7 @@ public class ChatHub : Hub
         chatUser.Password = password;
         db.AddUser(chatUser);
     }
+
     public async Task<ChatUser> LogIn(string username, string password)
     {
         ChatUser user = db.GetUserByUsername(username);
