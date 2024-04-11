@@ -20,10 +20,6 @@ public class ChatHub : Hub
 
     public async Task<List<Publication>> ReceiveAll()
     {
-        //foreach(var item in db.GetAllPublications())
-        //{
-        //    await this.Clients.Caller.SendAsync("Receive", db.GetUserById(item.UserId).Username, item.Message, item.Date);
-        //}
         return db.GetAllPublications().ToList();
     }
     public async Task<string> ReceiveUsernameById(Guid id)
@@ -40,7 +36,7 @@ public class ChatHub : Hub
         db.AddUser(chatUser);
     }
 
-    public async Task<ChatUser> LogIn(string username, string password)
+    public async Task<ChatUser?> LogIn(string username, string password)
     {
         ChatUser user = db.GetUserByUsername(username);
         
