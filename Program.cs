@@ -1,4 +1,4 @@
-using SignalRApp;   // пространство имен класса ChatHub
+using SignalRApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
